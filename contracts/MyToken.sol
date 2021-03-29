@@ -18,6 +18,11 @@ contract MyToken is ERC721URIStorage {
     mapping(uint256 => uint256) public depth;
     mapping(uint256 => uint256[]) public branches;
 
+    modifier tokenExists(uint256 _tokenID) {
+        require(_exists(_tokenID), "Invalid Token");
+        _;
+    }
+
     constructor(string memory _websiteURI)
         public
         ERC721("Tree Chan Node", "TCN")
@@ -42,6 +47,7 @@ contract MyToken is ERC721URIStorage {
 
     function comment(uint256 _post, string memory _message)
         public
+        tokenExists(_post)
         returns (uint256)
     {
         _tokenIds.increment();
@@ -53,6 +59,10 @@ contract MyToken is ERC721URIStorage {
         branches[_post].push(newItemId);
         emit Transfer(address(0), msg.sender, newItemId);
         return newItemId;
+    }
+
+    function getMessage(uint256 _token) external view returns (string memory) {
+        return messages[_token];
     }
 
     function getDepth(uint256 _token) external view returns (uint256) {
@@ -67,12 +77,15 @@ contract MyToken is ERC721URIStorage {
         return branches[_token];
     }
 
+    function getParent(uint256 _token) external view returns (uint256) {
+        return previous[_token];
+    }
+
     function getParents(uint256 _token)
         external
         view
         returns (uint256[] memory)
     {
-        console.log("Starting. Depth: %d", depth[_token]);
         uint256[] memory parents = new uint256[](depth[_token]);
         uint256 i = depth[_token];
         uint256 currToken = _token;
