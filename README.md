@@ -1,11 +1,35 @@
-# contract-template-hardhat
+# Tree Chan
 
-A pre-configured starter template for smart contracts using
-[HardHat](https://hardhat.org/), and
-[TypeScript](https://github.com/microsoft/TypeScript).
+## What is It?
 
-If you want to use Truffle instead, check out
-[this template](https://github.com/CoinbaseStablecoin/contract-template).
+Tree Chan is a new social media project
+
+Users can create posts on tree chan with custom messages.
+
+Each post on Tree Chan is an NFT that can be traded and sold.
+
+Each posts can have comments. Those are also NFTs. Each comment can also have
+their own comments.
+
+This forms a tree, which a front end can take advantage of.
+
+Here is an example:
+
+```
+    1
+    |
+    2
+    /\
+   3  4
+  /\
+ 5 6
+```
+
+Each post knows the post above it, and all the branches below
+
+## Why Would I Use This?
+
+Why not?
 
 ## Setup
 
