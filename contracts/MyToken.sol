@@ -15,6 +15,7 @@ contract MyToken is ERC721URIStorage {
     string public baseURI;
     mapping(uint256 => string) public messages;
     mapping(uint256 => uint256) public previous;
+    mapping(uint256 => uint256) public depth;
     mapping(uint256 => uint256[]) public branches;
 
     constructor(string memory _websiteURI)
@@ -34,8 +35,7 @@ contract MyToken is ERC721URIStorage {
         uint256 newItemId = _tokenIds.current();
         _mint(msg.sender, newItemId);
         messages[newItemId] = _message;
-        console.log("New Thread: %d", newItemId);
-        console.log("Message: %s", _message);
+        depth[newItemId] = 0;
         emit Transfer(address(0), msg.sender, newItemId);
         return newItemId;
     }
@@ -49,9 +49,40 @@ contract MyToken is ERC721URIStorage {
         _mint(msg.sender, newItemId);
         messages[newItemId] = _message;
         previous[newItemId] = _post;
+        depth[newItemId] = depth[_post] + 1;
         branches[_post].push(newItemId);
         emit Transfer(address(0), msg.sender, newItemId);
         return newItemId;
+    }
+
+    function getDepth(uint256 _token) external view returns (uint256) {
+        return depth[_token];
+    }
+
+    function getBranches(uint256 _token)
+        external
+        view
+        returns (uint256[] memory)
+    {
+        return branches[_token];
+    }
+
+    function getParents(uint256 _token)
+        external
+        view
+        returns (uint256[] memory)
+    {
+        console.log("Starting. Depth: %d", depth[_token]);
+        uint256[] memory parents = new uint256[](depth[_token]);
+        uint256 i = depth[_token];
+        uint256 currToken = _token;
+        console.log("Before\n");
+        while (i > 0) {
+            currToken = previous[currToken];
+            parents[i - 1] = currToken;
+            i = i - 1;
+        }
+        return parents;
     }
 
     function _baseURI() internal view override returns (string memory) {
