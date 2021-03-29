@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { MyToken, MyToken__factory } from "../@types/generated";
+import { TreeChan, TreeChan__factory } from "../@types/generated";
 import hre from "hardhat";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { BigNumber } from "ethers";
@@ -8,17 +8,17 @@ const { ethers } = hre;
 
 const burn = "0x0000000000000000000000000000000000000000";
 
-describe("MyToken", () => {
+describe("TreeChan", () => {
   let alice: SignerWithAddress;
   let bob: SignerWithAddress;
-  let token: MyToken;
+  let token: TreeChan;
 
   beforeEach(async () => {
     [alice, bob] = await ethers.getSigners();
 
     const myTokenFactory = (await hre.ethers.getContractFactory(
-      "MyToken"
-    )) as MyToken__factory;
+      "TreeChan"
+    )) as TreeChan__factory;
 
     token = await myTokenFactory.deploy("nfts.com/");
   });
