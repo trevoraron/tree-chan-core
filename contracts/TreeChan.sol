@@ -5,7 +5,6 @@ pragma solidity 0.8.0;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "hardhat/console.sol";
 
 contract TreeChan is ERC721URIStorage {
     using Counters for Counters.Counter;
@@ -89,7 +88,6 @@ contract TreeChan is ERC721URIStorage {
         uint256[] memory parents = new uint256[](depth[_token]);
         uint256 i = depth[_token];
         uint256 currToken = _token;
-        console.log("Before\n");
         while (i > 0) {
             currToken = previous[currToken];
             parents[i - 1] = currToken;
