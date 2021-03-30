@@ -1,14 +1,12 @@
 import { TreeChan__factory } from "../@types/generated";
 import hre from "hardhat";
 
-const { ethers } = hre;
-
 async function main() {
-  const myTokenFactory = (await hre.ethers.getContractFactory(
-    "MyToken"
+  const treeChanFactory = (await hre.ethers.getContractFactory(
+    "TreeChan"
   )) as TreeChan__factory;
 
-  const myToken = await myTokenFactory.deploy("trevor.com");
+  const myToken = await treeChanFactory.deploy("trevor.com");
 
   await myToken.deployed();
   console.log("TreeChan deployed at:", myToken.address);

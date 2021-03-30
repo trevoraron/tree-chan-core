@@ -95,6 +95,12 @@ To run tests and generate test coverage, run:
 $ yarn coverage
 ```
 
+## Deploy and Update Etherscan
+
+```
+yarn deploy --network ropsten
+yarn hardhat verify --network mainnet DEPLOYED_CONTRACT_ADDRESS "$URL"
 ---
 
 MIT License
+```

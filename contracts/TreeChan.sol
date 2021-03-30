@@ -40,7 +40,6 @@ contract TreeChan is ERC721URIStorage {
         _mint(msg.sender, newItemId);
         messages[newItemId] = _message;
         depth[newItemId] = 0;
-        emit Transfer(address(0), msg.sender, newItemId);
         return newItemId;
     }
 
@@ -56,7 +55,6 @@ contract TreeChan is ERC721URIStorage {
         previous[newItemId] = _post;
         depth[newItemId] = depth[_post] + 1;
         branches[_post].push(newItemId);
-        emit Transfer(address(0), msg.sender, newItemId);
         return newItemId;
     }
 
