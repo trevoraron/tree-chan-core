@@ -6,7 +6,9 @@ async function main() {
     "TreeChan"
   )) as TreeChan__factory;
 
-  const myToken = await treeChanFactory.deploy("trevor.com");
+  const myToken = await treeChanFactory.deploy(
+    "https://trevoraron.github.io/tree-chan-frontend/?id="
+  );
 
   await myToken.deployed();
   console.log("TreeChan deployed at:", myToken.address);
